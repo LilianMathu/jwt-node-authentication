@@ -1,13 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
-import config from "config";
+import config from "../config";
 
 // Initialize express
 const app = express();
 
 // db connection
-const db = config.MONGO_URI;
+const db = config.mongo_uri;
 const connectDb = async () => {
   try {
     await mongoose.connect(db, {
@@ -16,7 +16,7 @@ const connectDb = async () => {
     });
     console.log("DB connection successful!");
   } catch (error) {
-    console.log("DB connections failed!", error);
+    console.log("DB connection failed!", error);
   }
 };
 
