@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-
+import userRoute from "./routes/userRoute";
 import config from "config";
 
 // Initialize express
@@ -23,5 +23,6 @@ const connectDb = async () => {
 connectDb();
 
 // Routes
+app.use(userRoute);
 
 export default app;
