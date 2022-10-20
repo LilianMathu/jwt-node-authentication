@@ -25,10 +25,8 @@ const userSchema = new Schema(
       required: [true, "Please enter your password"],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
+  { collection: "users" }
 );
-
-
-
 
 export default model("User", userSchema);
