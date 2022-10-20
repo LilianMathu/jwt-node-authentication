@@ -4,6 +4,7 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
+      trim: true,
       unique: true,
       lowercase: true,
       required: [true, "Email cannot be blank"],
@@ -20,10 +21,14 @@ const userSchema = new Schema(
     password: {
       type: String,
       min: 6,
+      max: 20,
       required: [true, "Please enter your password"],
     },
   },
   { timestamps: true }
 );
+
+
+
 
 export default model("User", userSchema);
