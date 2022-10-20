@@ -53,7 +53,24 @@ const userController = {
   },
 
   login: async (req, res) => {
-    
+    const { email, phone, password } = req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser.length < 1) {
+      return res.status(401).json({ message: "Auth failed!" });
+    }
+
+    try {
+      const verifiedPassword = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
+      return res
+        .status(201)
+        .json({ message: "Auth successful", verifiedPassword });
+    } catch (error) {
+      return res.status(401).json({ message: "Failed to authenticate", error });
+    }
   },
 };
 
