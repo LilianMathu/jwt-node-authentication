@@ -28,13 +28,22 @@ const userController = {
         .json({ message: "Password should be at least 6 characters!" });
     }
     // Hash password
-
+    const salt = await bcrypt.genSalt();
+    const hash = await bcrypt.hash(password, salt);
     // Create token
 
     // Send sms
 
     // Registration success
+    try {
+      const user = new User({ email, phone, password: hash });
+      const saveUser = await user.save();
+      res.status(200).json({ message: "User saved!", saveUser });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to save user!", error });
+    }
   },
+
   activate: async (req, res) => {
     // Get token from sms/email
     // Verify token
@@ -42,7 +51,10 @@ const userController = {
     // Add new user
     // Activation success
   },
-  login: async (req, res) => {},
+
+  login: async (req, res) => {
+    
+  },
 };
 
 export default userController;
