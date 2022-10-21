@@ -68,7 +68,15 @@ const userController = {
         if (!verifyPassword) {
           res.status(401).json({ message: "Wrong credentials!" });
         } else {
-          res.status(201).json({ message: "Auth successful!" });
+          const token = await jwt.sign(
+            {
+              email: existingUser.email,
+              phone: existingUser.phone,
+            },
+            config.secret,
+            { expiresIn: "1h" }
+          );
+          res.status(201).json({ message: "Auth successful!", token });
         }
       }
     } catch (error) {
