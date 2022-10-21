@@ -53,23 +53,26 @@ const userController = {
   },
 
   login: async (req, res) => {
-    const { email, phone, password } = req.body;
-    const existingUser = await User.findOne({ email });
-
-    if (existingUser.length < 1) {
-      return res.status(401).json({ message: "Auth failed!" });
-    }
-
     try {
-      const verifiedPassword = await bcrypt.compare(
-        password,
-        existingUser.password
-      );
-      return res
-        .status(201)
-        .json({ message: "Auth successful", verifiedPassword });
+      const { email, phone, password } = req.body;
+      const existingUser = await User.findOne({ email });
+
+      if (!existingUser) {
+        return res.status(400).json({ message: "Auth failed" });
+      } else {
+        const verifyPassword = await bcrypt.compare(
+          password,
+          existingUser.password
+        ); //returns true or false
+
+        if (!verifyPassword) {
+          res.status(401).json({ message: "Wrong credentials!" });
+        } else {
+          res.status(201).json({ message: "Auth successful!" });
+        }
+      }
     } catch (error) {
-      return res.status(401).json({ message: "Failed to authenticate", error });
+      res.status(500).json({ message: "Auth errors!", error });
     }
   },
 };
