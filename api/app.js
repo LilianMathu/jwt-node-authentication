@@ -1,7 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import userRoute from "./routes/userRoute";
 import config from "../config";
+import userRoute from "./routes/userRoute";
+import productRoute from "./routes/productRoute";
 
 // Initialize express
 const app = express();
@@ -24,5 +25,6 @@ connectDb();
 
 // Routes
 app.use(userRoute);
+app.use(productRoute);
 
 export default app;
