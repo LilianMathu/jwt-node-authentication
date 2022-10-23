@@ -27,9 +27,11 @@ const userController = {
         .status(400)
         .json({ message: "Password should be at least 6 characters!" });
     }
+
     // Hash password
     const salt = await bcrypt.genSalt();
     const hash = await bcrypt.hash(password, salt);
+
     // Create token
 
     // Send sms
