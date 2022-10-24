@@ -16,5 +16,6 @@ router.post("/api/products", authMiddleware, productController.addNew);
 router.get("/api/products", productController.getProducts);
 router.get("/api/products/:id", productController.getOneProduct);
 router.patch("/api/products/:id", productController.updateProduct);
+router.delete("/api/products/:id", productController.deleteProduct);
 
 export default router;

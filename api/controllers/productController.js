@@ -24,7 +24,11 @@ const productController = {
   getProducts: async (req, res) => {
     try {
       const products = await Product.find({});
-      res.status(200).send(products);
+
+      res.status(200).json({
+        count: products.length,
+        products,
+      });
     } catch (error) {
       res.status(500).send(error);
     }
@@ -35,7 +39,9 @@ const productController = {
       const oneProduct = await Product.findById(req.params.id);
 
       if (!oneProduct) {
-        return res.status(404);
+        return res.status(404).json({
+          message: "Not Found!",
+        });
       }
 
       res.status(200).send(oneProduct);
@@ -53,10 +59,28 @@ const productController = {
       );
 
       if (!updateProduct) {
-        return res.status(404).send();
+        return res.status(404).json({
+          message: "Not Found!",
+        });
       }
 
       res.status(200).send(updateProduct);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+
+  deleteProduct: async (req, res) => {
+    try {
+      const deleteProduct = await Product.findByIdAndDelete(req.params.id);
+
+      if (!deleteProduct) {
+        return res.status(404).json({
+          message: "Not Found!",
+        });
+      }
+
+      res.send("Product deleted!");
     } catch (error) {
       res.status(500).send(error);
     }
