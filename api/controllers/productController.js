@@ -7,11 +7,11 @@ const productController = {
     try {
       const product = new Product({ name, price });
 
-      const addProduct = await product.save();
+      const saveProduct = await product.save();
 
       res.status(200).json({
         message: "Product saved!",
-        addProduct,
+        saveProduct,
       });
     } catch (error) {
       res.status(401).json({
