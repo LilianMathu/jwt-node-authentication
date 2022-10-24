@@ -29,6 +29,20 @@ const productController = {
       res.status(500).send(error);
     }
   },
+
+  getOneProduct: async (req, res) => {
+    try {
+      const oneProduct = await Product.findById(req.params.id);
+
+      if (!oneProduct) {
+        res.status(404);
+      }
+
+      res.status(200).send(oneProduct);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
 };
 
 export default productController;
