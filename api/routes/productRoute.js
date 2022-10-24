@@ -12,6 +12,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(morgan("dev"));
 
 // Product Routes
-router.post("/api/products",authMiddleware, productController.addNew);
+router.post("/api/products", authMiddleware, productController.addNew);
+router.get("/api/products", productController.getProducts);
 
 export default router;
