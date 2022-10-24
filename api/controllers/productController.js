@@ -35,10 +35,28 @@ const productController = {
       const oneProduct = await Product.findById(req.params.id);
 
       if (!oneProduct) {
-        res.status(404);
+        return res.status(404);
       }
 
       res.status(200).send(oneProduct);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  },
+
+  updateProduct: async (req, res) => {
+    try {
+      const updateProduct = await Product.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+
+      if (!updateProduct) {
+        return res.status(404).send();
+      }
+
+      res.status(200).send(updateProduct);
     } catch (error) {
       res.status(500).send(error);
     }

@@ -15,5 +15,6 @@ router.use(morgan("dev"));
 router.post("/api/products", authMiddleware, productController.addNew);
 router.get("/api/products", productController.getProducts);
 router.get("/api/products/:id", productController.getOneProduct);
+router.patch("/api/products/:id", productController.updateProduct);
 
 export default router;
